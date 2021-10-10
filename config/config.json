@@ -1,0 +1,6 @@
+{
+  "development": {
+    "PORT": 5000,
+    "DB_CONNECTION": "mongodb+srv://admin:75xPWBsZobegO1nK@cluster01.eko3p.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+  }
+}
