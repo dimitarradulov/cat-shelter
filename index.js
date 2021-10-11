@@ -16,7 +16,9 @@ initHandlebars(app);
 
 app.use(routes);
 
-initDb(config.DB_CONNECTION)
+initDb(
+  'mongodb+srv://admin:75xPWBsZobegO1nK@cluster01.eko3p.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
+)
   .then(() => {
     app.listen(process.env.PORT || 3000);
   })
