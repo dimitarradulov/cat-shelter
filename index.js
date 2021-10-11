@@ -18,9 +18,7 @@ app.use(routes);
 
 initDb(config.DB_CONNECTION)
   .then(() => {
-    app.listen(config.PORT, () => {
-      console.log(`App listening on port ${config.PORT}!`);
-    });
+    app.listen(process.env.PORT || 3000);
   })
   .catch((err) => {
     console.log('There is a problem:');
