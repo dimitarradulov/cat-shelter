@@ -5,6 +5,7 @@ const breeds = require('./controllers/breedsController');
 const cats = require('./controllers/catController');
 const editCat = require('./controllers/editCatController');
 const shelterCat = require('./controllers/catShelterController');
+const authController = require('./controllers/authController');
 
 const router = express.Router();
 
@@ -13,5 +14,6 @@ router.use(breeds);
 router.use(cats);
 router.use(editCat);
 router.use(shelterCat);
+router.use(authController);
 
 module.exports = router;
