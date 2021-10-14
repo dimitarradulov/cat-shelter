@@ -6,13 +6,17 @@ const catServices = require('../services/catServices');
 const breedsServices = require('../services/breedsServices');
 
 const renderEditCat = async (req, res) => {
+  if (!req.user) {
+    return res.status(401).redirect('/404');
+  }
+
   const cat = await catServices.getOne(req.params.catId);
   const breeds = await breedsServices.getAll();
 
   res.render('editCat', { cat, breeds });
 };
 
-const uptadeEditCat = (req, res) => {
+const updateEditCat = (req, res) => {
   Cat.findByIdAndUpdate(req.params.catId, req.body)
     .then(() => {
       res.redirect('/');
@@ -24,6 +28,6 @@ const uptadeEditCat = (req, res) => {
 };
 
 router.get('/cats/edit/:catId', renderEditCat);
-router.post('/cats/edit/:catId', uptadeEditCat);
+router.post('/cats/edit/:catId', updateEditCat);
 
 module.exports = router;

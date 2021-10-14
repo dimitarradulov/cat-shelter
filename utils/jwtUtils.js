@@ -1,7 +1,6 @@
 const jwt = require('jsonwebtoken');
-// const util = require('util');
+const util = require('util');
 
-// exports.jwtSign = util.promisify(jwt.sign);
 const sign = (payload, secret) => {
   const promise = new Promise((resolve, reject) => {
     jwt.sign(payload, secret, function (err, token) {
@@ -16,8 +15,11 @@ const sign = (payload, secret) => {
   return promise;
 };
 
+const verify = util.promisify(jwt.verify);
+
 const jwtUtils = {
   sign,
+  verify,
 };
 
 module.exports = jwtUtils;

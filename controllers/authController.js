@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const authService = require('../services/authService');
+const constants = require('../constants');
 
 router.get('/register', (req, res) => {
   res.render('auth/register');
@@ -30,7 +31,7 @@ router.post('/login', async (req, res) => {
 
   const token = await authService.createToken(auth);
 
-  res.cookie('app_token', token, {
+  res.cookie(constants.APP_TOKEN, token, {
     httpOnly: true,
   });
 
