@@ -5,12 +5,15 @@ const config = require('./config/config.json')[
   process.env.NODE_ENV || 'development'
 ];
 const initDb = require('./config/database');
+const cookieParser = require('cookie-parser');
 
 const app = express();
 
 app.use(express.urlencoded({ extended: true }));
 
 app.use('/content', express.static('./public'));
+
+app.use(cookieParser());
 
 initHandlebars(app);
 

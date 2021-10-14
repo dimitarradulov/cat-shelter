@@ -30,7 +30,7 @@ router.post('/login', async (req, res) => {
 
   const token = await authService.createToken(auth);
 
-  console.log(token);
+  res.cookie('app_token', token);
 
   res.redirect('/');
 });
