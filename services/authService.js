@@ -1,5 +1,7 @@
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
+const constants = require('../constants');
+const jwtUtils = require('../utils/jwtUtils');
 
 const register = (username, password, repeatPassword) => {
   // return bcrypt
@@ -25,9 +27,19 @@ const login = async (username, password) => {
   }
 };
 
+const createToken = (user) => {
+  const payload = {
+    _id: user._id,
+    username: user.username,
+  };
+
+  return jwtUtils.sign(payload, constants.SECRET_KEY);
+};
+
 const authService = {
   register,
   login,
+  createToken,
 };
 
 module.exports = authService;
