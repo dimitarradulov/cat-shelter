@@ -9,11 +9,16 @@ router.get('/register', (req, res) => {
 });
 
 router.post('/register', async (req, res) => {
-  const { username, password, repeatPassword } = req.body;
+  try {
+    const { username, password, repeatPassword } = req.body;
 
-  await authService.register(username, password, repeatPassword);
+    await authService.register(username, password, repeatPassword);
 
-  res.redirect('/login');
+    res.redirect('/login');
+  } catch (e) {
+    // TODO: Redirect to 404 page
+    res.status(400).send('Error');
+  }
 });
 
 router.get('/login', (req, res) => {
@@ -21,21 +26,26 @@ router.get('/login', (req, res) => {
 });
 
 router.post('/login', async (req, res) => {
-  const { username, password } = req.body;
+  try {
+    const { username, password } = req.body;
 
-  const auth = await authService.login(username, password);
+    const auth = await authService.login(username, password);
 
-  if (!auth) {
-    return res.redirect('/404');
+    if (!auth) {
+      return res.redirect('/404');
+    }
+
+    const token = await authService.createToken(auth);
+
+    res.cookie(constants.APP_TOKEN, token, {
+      httpOnly: true,
+    });
+
+    res.redirect('/');
+  } catch (e) {
+    // TODO: Redirect to 404 page
+    res.status(400).send('Error');
   }
-
-  const token = await authService.createToken(auth);
-
-  res.cookie(constants.APP_TOKEN, token, {
-    httpOnly: true,
-  });
-
-  res.redirect('/');
 });
 
 module.exports = router;
