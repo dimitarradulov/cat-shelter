@@ -6,12 +6,21 @@ const userSchema = new mongoose.Schema({
   username: {
     type: String,
     required: true,
-    minlength: [2, 'Less than 2 characters'],
+    validate: [
+      /[a-zA-Z0-9]+/i,
+      'Username should consist of english latters and digits only!',
+    ],
+    unique: true,
+    minlength: [5, 'Less than 5 characters long'],
   },
   password: {
     type: String,
     required: true,
-    minlength: [6, 'Less than 6 characters'],
+    validate: [
+      /[a-zA-Z0-9]+/i,
+      'Password should consist of english latters and digits only!',
+    ],
+    minlength: [8, 'Less than 8 characters long'],
   },
 });
 
