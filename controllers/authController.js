@@ -12,12 +12,18 @@ router.post('/register', async (req, res) => {
   try {
     const { username, password, repeatPassword } = req.body;
 
+    if (password !== repeatPassword) {
+      throw { message: 'Password mismatch!', isValidPassword: false };
+    }
+
     await authService.register(username, password, repeatPassword);
 
     res.redirect('/login');
   } catch (e) {
     // TODO: Redirect to 404 page
-    res.status(400).send('Error');
+    if (!e.isValidPassword) {
+      res.status(400).send(e.message);
+    }
   }
 });
 
