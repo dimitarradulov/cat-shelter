@@ -1,5 +1,4 @@
 const constants = require('../constants');
-const jwt = require('jsonwebtoken');
 const jwtUtils = require('../utils/jwtUtils');
 
 const auth = (req, res, next) => {
@@ -20,8 +19,17 @@ const auth = (req, res, next) => {
     });
 };
 
+const isAuth = (req, res, next) => {
+  if (!req.user) {
+    return res.status(401).redirect('/login');
+  }
+
+  next();
+};
+
 const authMiddleware = {
   auth,
+  isAuth,
 };
 
 module.exports = authMiddleware;
