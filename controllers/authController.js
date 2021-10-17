@@ -35,7 +35,7 @@ router.post('/login', async (req, res) => {
     const auth = await authService.login(username, password);
 
     if (!auth) {
-      return res.redirect('/404');
+      throw { message: 'Username or password does not match!' };
     }
 
     const token = await authService.createToken(auth);
@@ -45,9 +45,8 @@ router.post('/login', async (req, res) => {
     });
 
     res.redirect('/');
-  } catch (e) {
-    // TODO: Redirect to 404 page
-    res.status(400).send('Error');
+  } catch (error) {
+    res.render('auth/login', { error });
   }
 });
 
