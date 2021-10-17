@@ -7,7 +7,6 @@ const home = (req, res) => {
   catServices
     .getAll()
     .then((cats) => {
-      console.log(cats);
       res.render('home', { cats });
     })
     .catch((err) => {
