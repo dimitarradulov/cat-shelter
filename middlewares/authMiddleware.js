@@ -12,6 +12,7 @@ const auth = (req, res, next) => {
     .verify(token, constants.SECRET_KEY)
     .then((decodedToken) => {
       req.user = decodedToken;
+      res.locals.user = decodedToken;
       next();
     })
     .catch(() => {

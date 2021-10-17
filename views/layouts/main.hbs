@@ -23,10 +23,13 @@
       <nav>
         <ul class='navigation'>
           <li><a href='/'>Home Page</a></li>
-          <li><a href='/cats/add-breed'>Add Breed</a></li>
-          <li><a href='/cats/add-cat'>Add Cat</a></li>
-          <li><a href='/register'>Register</a></li>
-          <li><a href='/login'>Login</a></li>
+          {{#if user}}
+            <li><a href='/cats/add-breed'>Add Breed</a></li>
+            <li><a href='/cats/add-cat'>Add Cat</a></li>
+          {{else}}
+            <li><a href='/register'>Register</a></li>
+            <li><a href='/login'>Login</a></li>
+          {{/if}}
         </ul>
       </nav>
     </header>
