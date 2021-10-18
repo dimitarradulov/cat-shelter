@@ -10,9 +10,14 @@ const renderBreedsPage = (req, res) => {
 const createBreed = (req, res) => {
   const { breed } = req.body;
 
-  breedsServices.create(breed);
-
-  res.redirect('/cats/add-breed');
+  breedsServices
+    .create(breed)
+    .then(() => {
+      res.redirect('/cats/add-breed');
+    })
+    .catch((error) => {
+      res.render('addBreed', { error });
+    });
 };
 
 router.get('/cats/add-breed', renderBreedsPage);

@@ -1,16 +1,9 @@
 const Breed = require('../models/Breed');
 
 const create = (name) => {
-  Breed.create({
+  return Breed.create({
     name,
-  })
-    .then((breed) => {
-      console.log(breed);
-    })
-    .catch((err) => {
-      console.log('There is a problem:');
-      console.log(err);
-    });
+  });
 };
 
 const getAll = () => Breed.find({}).lean();

@@ -6,9 +6,13 @@ const Cat = require('../models/Cat');
 const catServices = require('../services/catServices');
 
 const renderCatShelter = async (req, res) => {
-  const cat = await catServices.getOne(req.params.catId);
+  try {
+    const cat = await catServices.getOne(req.params.catId);
 
-  res.render('catShelter', { cat });
+    res.render('catShelter', { cat });
+  } catch (erorr) {
+    res.redirect(400, '/404');
+  }
 };
 
 const shelterCat = (req, res) => {
@@ -16,8 +20,8 @@ const shelterCat = (req, res) => {
     .then(() => {
       res.redirect('/');
     })
-    .catch((err) => {
-      console.log(err);
+    .catch((error) => {
+      res.render('catShelter', { error });
     });
 };
 

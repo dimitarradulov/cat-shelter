@@ -12,9 +12,8 @@ const renderAddCat = (req, res) => {
     .then((breeds) => {
       res.render('addCat', { breeds });
     })
-    .catch((err) => {
-      console.log('There is a problem:');
-      console.log(err);
+    .catch(() => {
+      res.redirect(400, '/404');
     });
 };
 
@@ -32,7 +31,7 @@ const createCat = async (req, res) => {
 
     res.redirect('/');
   } catch (error) {
-    res.status(400).send('404');
+    res.render('addCat', { error });
   }
 };
 

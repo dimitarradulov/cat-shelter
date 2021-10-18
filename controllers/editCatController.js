@@ -10,14 +10,18 @@ const renderEditCat = async (req, res) => {
     return res.redirect('/404');
   }
 
-  const cat = await catServices.getOne(req.params.catId);
-  const breeds = await breedsServices.getAll();
+  try {
+    const cat = await catServices.getOne(req.params.catId);
+    const breeds = await breedsServices.getAll();
 
-  if (cat.creatorId.toString() !== req.user._id) {
-    return res.redirect('404');
+    if (cat.creatorId.toString() !== req.user._id) {
+      return res.redirect('404');
+    }
+
+    res.render('editCat', { cat, breeds });
+  } catch (error) {
+    res.redirect(400, '/404');
   }
-
-  res.render('editCat', { cat, breeds });
 };
 
 const updateEditCat = (req, res) => {
@@ -25,9 +29,8 @@ const updateEditCat = (req, res) => {
     .then(() => {
       res.redirect('/');
     })
-    .catch((err) => {
-      console.log('error');
-      console.log(error);
+    .catch((error) => {
+      res.render('editCat', { error });
     });
 };
 

@@ -9,17 +9,20 @@ const home = (req, res) => {
     .then((cats) => {
       res.render('home', { cats });
     })
-    .catch((err) => {
-      console.log(err);
+    .catch(() => {
+      res.redirect(400, '/404');
     });
 };
 
 const search = async (req, res) => {
   const { search } = req.query;
 
-  const cats = await catServices.search(search);
-
-  res.render('home', { cats });
+  try {
+    const cats = await catServices.search(search);
+    res.render('home', { cats });
+  } catch (error) {
+    res.redirect(400, '/404');
+  }
 };
 
 router.get('/', home);
