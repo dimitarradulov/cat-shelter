@@ -13,11 +13,15 @@ const catSchema = new mongoose.Schema({
   image: {
     type: String,
     required: true,
-    validate: /^https?:\/\//,
+    validate: [/^https?:\/\//, 'Not a valid image URL'],
   },
   breed: {
     type: String,
     required: true,
+  },
+  creatorId: {
+    type: mongoose.Types.ObjectId,
+    ref: 'User',
   },
 });
 

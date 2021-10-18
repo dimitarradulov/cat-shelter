@@ -4,6 +4,8 @@ const router = express.Router();
 const catServices = require('../services/catServices');
 const breedsServices = require('../services/breedsServices');
 
+const User = require('../models/User');
+
 const renderAddCat = (req, res) => {
   breedsServices
     .getAll()
@@ -16,18 +18,22 @@ const renderAddCat = (req, res) => {
     });
 };
 
-const createCat = (req, res) => {
+const createCat = async (req, res) => {
   const { name, description, image, breed } = req.body;
 
-  catServices
-    .create(name, description, image, breed)
-    .then(() => {
-      res.redirect('/');
-    })
-    .catch((err) => {
-      console.log('There is a problem:');
-      console.log(err);
-    });
+  try {
+    const user = await User.findById(req.user._id);
+
+    const cat = await catServices.create(name, description, image, breed);
+
+    cat.creatorId = user;
+
+    await cat.save();
+
+    res.redirect('/');
+  } catch (error) {
+    res.status(400).send('404');
+  }
 };
 
 router.get('/cats/add-cat', renderAddCat);
