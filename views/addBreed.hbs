@@ -1,4 +1,10 @@
 <main>
+  {{#if breed}}
+    <div id='notifications' class='breed-notification'>
+      <p id='notification-message'>Breed added successfully!</p>
+    </div>
+  {{/if}}
+
   <form method='POST' class='cat-form'>
     <h2>Add Cat Breed</h2>
     <label for='breed-name'>Breed Name</label>

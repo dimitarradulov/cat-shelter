@@ -12,8 +12,8 @@ const createBreed = (req, res) => {
 
   breedsServices
     .create(breed)
-    .then(() => {
-      res.redirect('/cats/add-breed');
+    .then((breed) => {
+      res.render('addBreed', { breed });
     })
     .catch((error) => {
       res.render('addBreed', { error });
