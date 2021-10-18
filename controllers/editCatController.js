@@ -7,14 +7,14 @@ const breedsServices = require('../services/breedsServices');
 
 const renderEditCat = async (req, res) => {
   if (!req.user) {
-    return res.redirect('/login');
+    return res.redirect('/404');
   }
 
   const cat = await catServices.getOne(req.params.catId);
   const breeds = await breedsServices.getAll();
 
   if (cat.creatorId.toString() !== req.user._id) {
-    return res.status(401).redirect('/404');
+    return res.redirect('404');
   }
 
   res.render('editCat', { cat, breeds });

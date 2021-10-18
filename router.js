@@ -15,5 +15,8 @@ router.use(cats);
 router.use(editCat);
 router.use(shelterCat);
 router.use(authController);
+router.use('*', (req, res) => {
+  res.status(404).render('404');
+});
 
 module.exports = router;
