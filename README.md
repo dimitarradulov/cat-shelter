@@ -1,2 +1,2 @@
-# softuni-cat-shelter
-Backend express js project that I did for for my online bootcamp.
+# Cat Shelter Backend Project
+***Backend project built with Express and Handlebars***
