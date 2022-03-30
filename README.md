@@ -1,2 +1,2 @@
 # Cat Shelter Backend Project
-***Backend project built with Express and Handlebars***
+***Backend project built with Express, Handlebars, MongoDB, JWT, Bcrypt***
